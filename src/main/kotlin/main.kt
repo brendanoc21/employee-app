@@ -20,19 +20,19 @@ fun main(args: Array<String>){
                 "|                          Monthly Payslip                          |\n" +
                 "|___________________________________________________________________|\n" +
                 "|                                                                   |\n" +
-                "|       Employee Name: ${fname.uppercase()}${sname.uppercase()}(${gender})         Employee ID: ${empid}         |\n" +
+                "|       Employee Name: ${fname.uppercase()} ${sname.uppercase()} (${gender})    Employee ID: ${empid}            |\n" +
                 "|                                                                   |\n" +
                 "|___________________________________________________________________|\n" +
                 "|                                                                   |\n" +
                 "|       Payment Details                Deduction Details            |\n" +
                 "|___________________________________________________________________|\n" +
-                "|       Salary: ${df.format(salary/12)}                    PAYE: ${df.format((salary/12)*(paye/100))}          |\n" +
-                "|       Bonus: ${df.format(bonus/12)}                       PRSI: ${df.format((salary/12)*(prsi/100))}           |\n" +
+                "|       Salary: ${df.format(salary/12)}                PAYE: ${df.format((salary/12)*(paye/100))}                |\n" +
+                "|       Bonus: ${df.format(bonus/12)}                  PRSI: ${df.format((salary/12)*(prsi/100))}                 |\n" +
                 "|                                      Cycle To Work: ${df.format(deduction)}         |\n" +
                 "|___________________________________________________________________|\n" +
-                "|       Gross: ${df.format((salary + bonus)/12)}       Total Deductions: ${df.format((deduction+salary*(paye/100)+salary*(prsi/100))/12)}            |\n" +
+                "|       Gross: ${df.format((salary + bonus)/12)}                 Total Deductions: ${df.format((deduction+salary*(paye/100)+salary*(prsi/100))/12)}    |\n" +
                 "|___________________________________________________________________|\n" +
-                "|                         Net Pay: ${df.format(((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12)}                        |\n" +
+                "|                         Net Pay: ${df.format(((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12)}                          |\n" +
                 "|___________________________________________________________________|\n"
     )
 }
