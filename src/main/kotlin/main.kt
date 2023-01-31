@@ -1,6 +1,4 @@
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import kotlin.math.round
 
 val fname = "Joe"
 val sname = "Soap"
@@ -12,33 +10,37 @@ val prsi = 5.2
 val bonus = 1450.50
 val deduction = 54.33
 
+fun monthlySal() = roundTwoDecimals(salary / 12)
+fun monthlyBonus() = roundTwoDecimals(bonus / 12)
+fun fullName() = "${fname} ${sname}"
+fun monthlyPrsi() = roundTwoDecimals((salary/12)*(prsi/100))
+fun monthlyPaye() = roundTwoDecimals((salary/12)*(paye/100))
+fun grossSalary() = roundTwoDecimals(((salary + bonus)/12))
+fun totalDeduction() = roundTwoDecimals(((deduction+salary*(paye/100)+salary*(prsi/100))/12))
+fun netPay() = roundTwoDecimals((((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12))
 fun main(args: Array<String>){
-    val df = DecimalFormat("#.##")
-    df.roundingMode = RoundingMode.CEILING
     println("Pay Slip Printer")
     println("""
                 _____________________________________________________________________
                 |                          Monthly Payslip                          |
                 |___________________________________________________________________|
                 |                                                                   |
-                |       Employee Name: ${fname.uppercase()} ${sname.uppercase()}(${gender.uppercase()})     Employee ID: ${empid}            |
+                |       Employee Name: ${fullName()}(${gender.uppercase()})     Employee ID: ${empid}            |
                 |                                                                   |
                 |___________________________________________________________________|
                 |                                                                   |
                 |       Payment Details                Deduction Details            |
                 |___________________________________________________________________|
-                |       Salary: ${df.format(salary/12)}                PAYE: ${df.format((salary/12)*(paye/100))}                |
-                |       Bonus: ${df.format(bonus/12)}                  PRSI: ${df.format((salary/12)*(prsi/100))}                 |
-                |                                      Cycle To Work: ${df.format(deduction)}         |
+                |       Salary: ${monthlySal()}                 PAYE: ${monthlyPaye()}                |
+                |       Bonus: ${monthlyBonus()}                  PRSI: ${monthlyPrsi()}                 |
+                |                                      Cycle To Work: ${(deduction)}         |
                 |___________________________________________________________________|
-                |       Gross: ${df.format((salary + bonus)/12)}                 Total Deductions: ${df.format((deduction+salary*(paye/100)+salary*(prsi/100))/12)}    |
+                |       Gross: ${grossSalary()}                 Total Deductions: ${totalDeduction()}    |
                 |___________________________________________________________________|
-                |                         Net Pay: ${df.format(((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12)}                          |
+                |                         Net Pay: ${netPay()}                          |
                 |___________________________________________________________________|
                 """
     )
 }
 
-fun twodecimal(input: Double){
-    val short = BigDecimal(input).setScale(2, RoundingMode.HALF_EVEN)
-}
+fun roundTwoDecimals(number: Double) = round(number * 100) / 100
