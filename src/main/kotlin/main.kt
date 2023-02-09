@@ -4,7 +4,7 @@ import kotlin.math.round
 var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
 
 fun main(args: Array<String>){
-
+    add()
     var input : Int
 
     do {
@@ -73,3 +73,26 @@ fun menu() : Int {
     return readLine()!!.toInt()
 }
 fun roundTwoDecimals(number: Double) = round(number * 100) / 100
+
+fun add(){
+    print("Enter first name: ")
+    val fname = readLine().toString()
+    print("Enter surname: ")
+    val sname = readLine().toString()
+    print("Enter gender (m/f): ")
+    val gender = readLine()!!.toCharArray()[0]
+    print("Enter employee ID: ")
+    val empid = readLine()!!.toInt()
+    print("Enter gross salary: ")
+    val salary = readLine()!!.toDouble()
+    print("Enter PAYE %: ")
+    val paye = readLine()!!.toDouble()
+    print("Enter PRSI %: ")
+    val prsi = readLine()!!.toDouble()
+    print("Enter Annual Bonus: ")
+    val bonus= readLine()!!.toDouble()
+    print("Enter Cycle to Work Deduction: ")
+    val deduction= readLine()!!.toDouble()
+
+    employee = Employee(fname, sname, gender, empid, salary, paye, prsi, bonus, deduction)
+}
