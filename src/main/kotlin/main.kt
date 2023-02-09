@@ -1,14 +1,21 @@
 import ie.setu.Employee
 import ie.setu.EmployeeAPI
+import mu.KotlinLogging
 import kotlin.math.round
 
 var employees = EmployeeAPI()
+
+val logger = KotlinLogging.logger {}
+
 fun main(args: Array<String>){
+    logger.info { "Launching Employee App" }
+    logger.info { "Adding Dummy Data" }
     dummyData()
     start()
 }
 
 fun menu() : Int {
+    logger.info { "Starting Menu" }
     print(""" 
          |Employee Menu
          |   1. Add Employee
@@ -23,7 +30,7 @@ fun menu() : Int {
 
 fun start() {
     var input: Int
-
+    logger.info { "Accepting Input" }
     do {
         input = menu()
         when (input) {
@@ -59,6 +66,7 @@ internal fun getEmployeeById(): Employee? {
 
 fun paySlip(){
     val employee = getEmployeeById()
+    logger.info { "Printing Payslip" }
     if (employee != null)
         println(employee.getPayslip())
 }
