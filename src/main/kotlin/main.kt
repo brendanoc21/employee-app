@@ -1,78 +1,73 @@
 import ie.setu.Employee
+import ie.setu.EmployeeAPI
 import kotlin.math.round
 
-var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
-
+var employees = EmployeeAPI()
 fun main(args: Array<String>){
-    add()
-    var input : Int
+    dummyData()
+    start()
+}
+
+fun menu() : Int {
+    print(""" 
+         |Employee Menu
+         |   1. Add Employee
+         |   2. List All Employees
+         |   3. Search Employees 
+         |   4. Print Payslip for Employee
+         |   0. Exit
+         |       
+         |Enter Option : """.trimMargin())
+    return readLine()!!.toInt()
+}
+
+fun start() {
+    var input: Int
 
     do {
         input = menu()
-        when(input) {
-            1 -> println("Monthly Salary: ${monthlySal()}")
-            2 -> println("Monthly PRSI: ${monthlyPrsi()}")
-            3 ->println("Monthly PAYE: ${monthlyPaye()}")
-            4 -> println("Monthly Gross Pay: ${grossSalary()}")
-            5 -> println("Monthly Total Deductions: ${totalDeduction()}")
-            6 -> println("Monthly Net Pay: ${netPay()}")
-            7 -> println(getPayslip())
-            8 -> println("Exiting App")
+        when (input) {
+            1 -> add()
+            2 -> list()
+            3 -> search()
+            4 -> paySlip()
+            -99 -> dummyData()
+            -1 -> println("Exiting App")
             else -> println("Invalid Option")
         }
         println()
     } while (input != -1)
 }
 
-fun monthlySal() = roundTwoDecimals(employee.salary / 12)
-fun monthlyBonus() = roundTwoDecimals(employee.bonus / 12)
-fun fullName() = when (employee.gender){
-    'm', 'M' -> "Mr. ${employee.fname} ${employee.sname}"
-    'f', 'F' -> "Ms.  ${employee.fname} ${employee.sname}"
-    else ->  "${employee.fname} ${employee.sname}"
+fun list(){
+    employees.findAll().forEach{println(it)}
 }
 
-fun monthlyPrsi() = roundTwoDecimals((employee.salary/12)*(employee.prsi/100))
-fun monthlyPaye() = roundTwoDecimals((employee.salary/12)*(employee.paye/100))
-fun grossSalary() = roundTwoDecimals(((employee.salary + employee.bonus)/12))
-fun totalDeduction() = roundTwoDecimals(((employee.deduction+employee.salary*(employee.paye/100)+employee.salary*(employee.prsi/100))/12))
-fun netPay() = roundTwoDecimals((((employee.salary+employee.bonus)-(employee.deduction+employee.salary*(employee.paye/100)+employee.salary*(employee.prsi/100)))/12))
-fun getPayslip() = """
-      _____________________________________________________________________
-                                 Monthly Payslip                           
-      _____________________________________________________________________
-                                                                           
-              Employee Name: ${fullName()}(${employee.gender.uppercase()})     Employee ID: ${employee.empid}             
-                                                                           
-      _____________________________________________________________________
-                                                                           
-              Payment Details                Deduction Details             
-      _____________________________________________________________________
-             Salary: ${monthlySal()}                 PAYE: ${monthlyPaye()}                 
-              Bonus: ${monthlyBonus()}                  PRSI: ${monthlyPrsi()}                  
-                                             Cycle To Work: ${employee.deduction}          
-      _____________________________________________________________________
-              Gross: ${grossSalary()}                 Total Deductions: ${totalDeduction()}     
-      _____________________________________________________________________
-                                Net Pay: ${netPay()}                           
-      _____________________________________________________________________
-      """
-fun menu() : Int {
-    print("""
-         Employee Menu for ${fullName()}
-           1. Monthly Salary
-           2. Monthly PRSI
-           3. Monthly PAYE
-           4. Monthly Gross Pay
-           5. Monthly Total Deductions
-           6. Monthly Net Pay
-           7. Full Payslip
-           8. Exit
-         Enter Option : 
-         """)
-    return readLine()!!.toInt()
+fun search() {
+    val employee = getEmployeeById()
+    if (employee == null)
+        println("No employee found")
+    else
+        println(employee)
 }
-fun roundTwoDecimals(number: Double) = round(number * 100) / 100
+
+internal fun getEmployeeById(): Employee? {
+    print("Enter the employee id to search by: ")
+    val employeeID = readLine()!!.toInt()
+    return employees.findOne(employeeID)
+}
+
+fun paySlip(){
+    val employee = getEmployeeById()
+    if (employee != null)
+        println(employee.getPayslip())
+}
+
+fun dummyData() {
+    employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
+    employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
+    employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+}
 
 fun add(){
     print("Enter first name: ")
@@ -94,5 +89,7 @@ fun add(){
     print("Enter Cycle to Work Deduction: ")
     val deduction= readLine()!!.toDouble()
 
-    employee = Employee(fname, sname, gender, empid, salary, paye, prsi, bonus, deduction)
+    employees.create(Employee(fname, sname, gender, empid, salary, paye, prsi, bonus, deduction))
 }
+
+fun roundTwoDecimals(number: Double) = round(number * 100) / 100
