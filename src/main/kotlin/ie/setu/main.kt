@@ -1,5 +1,7 @@
-import ie.setu.Employee
-import ie.setu.EmployeeAPI
+package ie.setu
+
+import ie.setu.controllers.EmployeeAPI
+import ie.setu.models.Employee
 import mu.KotlinLogging
 import kotlin.math.round
 
@@ -59,7 +61,7 @@ fun search() {
 }
 
 internal fun getEmployeeById(): Employee? {
-    print("Enter the employee id to search by: ")
+    print("Enter the employee id to ie.setu.search by: ")
     val employeeID = readLine()!!.toInt()
     return employees.findOne(employeeID)
 }

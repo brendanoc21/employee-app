@@ -1,6 +1,6 @@
-package ie.setu
+package ie.setu.models
 
-import roundTwoDecimals
+import ie.setu.roundTwoDecimals
 
 class Employee (
     var fname : String,
