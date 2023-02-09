@@ -12,6 +12,27 @@ val deduction = 54.33
 
 var title = ""
 
+fun main(args: Array<String>){
+
+    var input : Int
+
+    do {
+        input = menu()
+        when(input) {
+            1 -> println("Monthly Salary: ${monthlySal()}")
+            2 -> println("Monthly PRSI: ${monthlyPrsi()}")
+            3 ->println("Monthly PAYE: ${monthlyPaye()}")
+            4 -> println("Monthly Gross Pay: ${grossSalary()}")
+            5 -> println("Monthly Total Deductions: ${totalDeduction()}")
+            6 -> println("Monthly Net Pay: ${netPay()}")
+            7 -> println(getPayslip())
+            8 -> println("Exiting App")
+            else -> println("Invalid Option")
+        }
+        println()
+    } while (input != -1)
+}
+
 fun monthlySal() = roundTwoDecimals(salary / 12)
 fun monthlyBonus() = roundTwoDecimals(bonus / 12)
 fun fullName() =  when (gender) {
@@ -59,9 +80,4 @@ fun menu() : Int {
          """)
     return readLine()!!.toInt()
 }
-
-fun main(args: Array<String>){
-    println(getPayslip())
-}
-
 fun roundTwoDecimals(number: Double) = round(number * 100) / 100
