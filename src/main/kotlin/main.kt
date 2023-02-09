@@ -1,16 +1,7 @@
+import ie.setu.Employee
 import kotlin.math.round
 
-val fname = "Joe"
-val sname = "Soap"
-val gender = "m"
-val empid = 6143
-val salary = 67543.21
-val paye = 38.5
-val prsi = 5.2
-val bonus = 1450.50
-val deduction = 54.33
-
-var title = ""
+var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
 
 fun main(args: Array<String>){
 
@@ -33,24 +24,25 @@ fun main(args: Array<String>){
     } while (input != -1)
 }
 
-fun monthlySal() = roundTwoDecimals(salary / 12)
-fun monthlyBonus() = roundTwoDecimals(bonus / 12)
-fun fullName() =  when (gender) {
-    "m", "M" -> "Mr. $fname $sname"
-    "f", "F" -> "Ms. $fname $sname"
-    else -> "$fname $sname"
+fun monthlySal() = roundTwoDecimals(employee.salary / 12)
+fun monthlyBonus() = roundTwoDecimals(employee.bonus / 12)
+fun fullName() = when (employee.gender){
+    'm', 'M' -> "Mr. ${employee.fname} ${employee.sname}"
+    'f', 'F' -> "Ms.  ${employee.fname} ${employee.sname}"
+    else ->  "${employee.fname} ${employee.sname}"
 }
-fun monthlyPrsi() = roundTwoDecimals((salary/12)*(prsi/100))
-fun monthlyPaye() = roundTwoDecimals((salary/12)*(paye/100))
-fun grossSalary() = roundTwoDecimals(((salary + bonus)/12))
-fun totalDeduction() = roundTwoDecimals(((deduction+salary*(paye/100)+salary*(prsi/100))/12))
-fun netPay() = roundTwoDecimals((((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12))
+
+fun monthlyPrsi() = roundTwoDecimals((employee.salary/12)*(employee.prsi/100))
+fun monthlyPaye() = roundTwoDecimals((employee.salary/12)*(employee.paye/100))
+fun grossSalary() = roundTwoDecimals(((employee.salary + employee.bonus)/12))
+fun totalDeduction() = roundTwoDecimals(((employee.deduction+employee.salary*(employee.paye/100)+employee.salary*(employee.prsi/100))/12))
+fun netPay() = roundTwoDecimals((((employee.salary+employee.bonus)-(employee.deduction+employee.salary*(employee.paye/100)+employee.salary*(employee.prsi/100)))/12))
 fun getPayslip() = """
       _____________________________________________________________________
                                  Monthly Payslip                           
       _____________________________________________________________________
                                                                            
-              Employee Name: ${fullName()}(${gender.uppercase()})     Employee ID: ${empid}             
+              Employee Name: ${fullName()}(${employee.gender.uppercase()})     Employee ID: ${employee.empid}             
                                                                            
       _____________________________________________________________________
                                                                            
@@ -58,7 +50,7 @@ fun getPayslip() = """
       _____________________________________________________________________
              Salary: ${monthlySal()}                 PAYE: ${monthlyPaye()}                 
               Bonus: ${monthlyBonus()}                  PRSI: ${monthlyPrsi()}                  
-                                             Cycle To Work: ${(deduction)}          
+                                             Cycle To Work: ${employee.deduction}          
       _____________________________________________________________________
               Gross: ${grossSalary()}                 Total Deductions: ${totalDeduction()}     
       _____________________________________________________________________
