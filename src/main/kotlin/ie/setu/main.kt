@@ -15,6 +15,8 @@ fun main(args: Array<String>){
 }
 
 fun menu() : Int {
+    logger.info { "Press enter To return to menu" }
+    readLine()!!
     logger.info { "Starting Menu" }
     print(""" 
          |Employee Menu
@@ -32,9 +34,9 @@ fun menu() : Int {
 
 fun start() {
     var input: Int
-    logger.info { "Accepting Input" }
     do {
         input = menu()
+        logger.info { "Accepting Input" }
         when (input) {
             1 -> add()
             2 -> list()
@@ -45,7 +47,6 @@ fun start() {
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
-        println()
     } while (input != -1)
 }
 
