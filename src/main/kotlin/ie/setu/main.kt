@@ -11,8 +11,6 @@ val logger = KotlinLogging.logger {}
 
 fun main(args: Array<String>){
     logger.info { "Launching Employee App" }
-    logger.info { "Adding Dummy Data" }
-    dummyData()
     start()
 }
 
@@ -24,6 +22,7 @@ fun menu() : Int {
          |   2. List All Employees
          |   3. Search Employees 
          |   4. Print Payslip for Employee
+         |   5. Add Dummy Data
          |   0. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -40,8 +39,8 @@ fun start() {
             2 -> list()
             3 -> search()
             4 -> paySlip()
-            -99 -> dummyData()
-            -1 -> println("Exiting App")
+            5 -> dummyData()
+            0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
         println()
@@ -49,6 +48,7 @@ fun start() {
 }
 
 fun list(){
+    logger.info { "Printing List" }
     employees.findAll().forEach{println(it)}
 }
 
@@ -63,6 +63,7 @@ fun search() {
 internal fun getEmployeeById(): Employee? {
     print("Enter the employee id to ie.setu.search by: ")
     val employeeID = readLine()!!.toInt()
+    logger.info { "Finding Employee" }
     return employees.findOne(employeeID)
 }
 
@@ -74,9 +75,10 @@ fun paySlip(){
 }
 
 fun dummyData() {
-    employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
-    employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
-    employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+    logger.info { "Adding Dummy Data" }
+    employees.create(Employee("Joe", "Soap", 'm', 1, 35655.43, 31.0, 7.5, 2000.0, 25.6))
+    employees.create(Employee("Joan", "Murphy", 'f', 2, 54255.13, 32.5, 7.0, 1500.0, 55.3))
+    employees.create(Employee("Mary", "Quinn", 'f', 3, 75685.41, 40.0, 8.5, 4500.0, 0.0))
 }
 
 fun add(){
@@ -98,7 +100,7 @@ fun add(){
     val bonus= readLine()!!.toDouble()
     print("Enter Cycle to Work Deduction: ")
     val deduction= readLine()!!.toDouble()
-
+    logger.info { "Adding Employee" }
     employees.create(Employee(fname, sname, gender, empid, salary, paye, prsi, bonus, deduction))
 }
 
