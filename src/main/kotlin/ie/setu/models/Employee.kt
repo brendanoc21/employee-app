@@ -29,6 +29,12 @@ class Employee (
     fun totalDeduction() = roundTwoDecimals(((deduction+salary*(paye/100)+salary*(prsi/100))/12))
     fun netPay() = roundTwoDecimals((((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12))
 
+    fun annualPrsi() = roundTwoDecimals(salary*(prsi/100))
+    fun annualPaye() = roundTwoDecimals(salary*(paye/100))
+    fun annualGrossSalary() = roundTwoDecimals(salary + bonus)
+    fun annualTotalDeduction() = roundTwoDecimals(deduction+salary*(paye/100)+salary*(prsi/100))
+    fun annualNetPay() = roundTwoDecimals((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))
+
     //Creates a payslip of monthly earning calculations
     fun getPayslip() = """
       _____________________________________________________________________
@@ -48,6 +54,28 @@ class Employee (
               Gross: ${grossSalary()}                 Total Deductions: ${totalDeduction()}     
       _____________________________________________________________________
                                 Net Pay: ${netPay()}                           
+      _____________________________________________________________________
+      """
+
+    //Creates a payslip of monthly earning calculations
+    fun getBigPayslip() = """
+      _____________________________________________________________________
+                                 Annual Payslip                           
+      _____________________________________________________________________
+                                                                           
+              Employee Name: ${fullName()}(${gender.uppercase()})     Employee ID: ${empid}             
+                                                                           
+      _____________________________________________________________________
+                                                                           
+              Payment Details                Deduction Details             
+      _____________________________________________________________________
+             Salary: ${salary}                 PAYE: ${annualPaye()}                 
+              Bonus: ${bonus}                  PRSI: ${annualPrsi()}                  
+                                             Cycle To Work: ${deduction}          
+      _____________________________________________________________________
+              Gross: ${annualGrossSalary()}                 Total Deductions: ${annualTotalDeduction()}     
+      _____________________________________________________________________
+                                Net Pay: ${annualNetPay()}                           
       _____________________________________________________________________
       """
 

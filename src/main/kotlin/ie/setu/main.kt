@@ -21,12 +21,16 @@ fun menu() : Int {
     Additional message and readline were added to delay the appearance of the menu so that
     the user would not have to scroll up as much after selecting an input.
 
-    I did this due to personal frustration with how that worked but it has led to unfortunate
+    I did this due to personal frustration with how that worked, but it has led to unfortunate
     consequences as the program may crash when being given an actual input during this extra
     step.
+
+    As such I have removed it.
     */
+    /*
     logger.info { "Press enter To return to menu" }
     readLine()!!
+     */
     logger.info { "Starting Menu" }
     print(""" 
          |Employee Menu
@@ -37,6 +41,7 @@ fun menu() : Int {
          |   5. Add Dummy Data
          |   6. Delete Employee
          |   7. Modify Employee
+         |   8. Print Annual Payslip for Employee
          |   0. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -58,6 +63,7 @@ fun start() {
             5 -> dummyData()
             6 -> delete()
             7 -> modify()
+            8 -> bigPaySlip()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -93,6 +99,13 @@ fun paySlip(){
     logger.info { "Printing Payslip" }
     if (employee != null)
         println(employee.getPayslip())
+}
+
+fun bigPaySlip(){
+    val employee = getEmployeeById()
+    logger.info { "Printing Payslip" }
+    if (employee != null)
+        println(employee.getBigPayslip())
 }
 
 //Adds multiple dummy entries for testing purposes
