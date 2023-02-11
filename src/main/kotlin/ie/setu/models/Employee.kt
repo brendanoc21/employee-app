@@ -48,7 +48,15 @@ class Employee (
       """
 
     override fun toString(): String {
-        return "Employee(fname='$fname', sname='$sname', gender=$gender, empid=$empid, salary=$salary, paye=$paye, prsi=$prsi, bonus=$bonus, deduction=$deduction)"
+        return """Employee: $fname $sname,
+            Gender: $gender,
+            Employee ID:$empid, 
+            Salary: $salary, 
+            PAYE: $paye, 
+            PRSI: $prsi, 
+            Bonus: $bonus, 
+            Deduction: $deduction
+            """
     }
 
 }
