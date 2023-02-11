@@ -18,9 +18,14 @@ class EmployeeAPI {
         return employees
     }
 
-    //Returns specific Object from arraylist
+    //Returns specific Object from arraylist by id
     fun findOne(id: Int): Employee? {
         return employees.find { p -> p.empid == id }
+    }
+
+    //Returns specific Object from arraylist by name
+    fun findName(name: String): Employee? {
+        return employees.find { p -> p.fname == name }
     }
 
     //Adds new employee to arraylist

@@ -36,12 +36,13 @@ fun menu() : Int {
          |Employee Menu
          |   1. Add Employee
          |   2. List All Employees
-         |   3. Search Employees 
+         |   3. Search Employees by ID
          |   4. Print Monthly Payslip for Employee
          |   5. Add Dummy Data
          |   6. Delete Employee
          |   7. Modify Employee
          |   8. Print Annual Payslip for Employee
+         |   9. Search Employees by first name
          |   0. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -64,6 +65,7 @@ fun start() {
             6 -> delete()
             7 -> modify()
             8 -> bigPaySlip()
+            9 -> searchN()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -93,6 +95,14 @@ internal fun getEmployeeById(): Employee? {
     return employees.findOne(employeeID)
 }
 
+//Finds a specific employee by name and returns it for use by other functions
+internal fun getEmployeeByName(): Employee? {
+    print("Enter the first name of employee to ie.setu.search by: ")
+    val employeeName = readLine()!!
+    logger.info { "Finding Employee" }
+    return employees.findName(employeeName)
+}
+
 //Gets payslip of selected employee
 fun paySlip(){
     val employee = getEmployeeById()
@@ -101,6 +111,7 @@ fun paySlip(){
         println(employee.getPayslip())
 }
 
+//Gets annual payslip of employee
 fun bigPaySlip(){
     val employee = getEmployeeById()
     logger.info { "Printing Payslip" }
@@ -153,6 +164,15 @@ fun modify(){
     print("Enter the employee id of the employee for modification: ")
     val employeeID = readLine()!!.toInt()
     employees.modify(employeeID)
+}
+
+//Searches for an employee by name
+fun searchN(){
+    val employee = getEmployeeByName()
+    if (employee == null)
+        println("No employee found")
+    else
+        println(employee)
 }
 
 //Rounds numbers to two decimal places for tidiness
