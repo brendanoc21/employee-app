@@ -23,9 +23,10 @@ fun menu() : Int {
          |   1. Add Employee
          |   2. List All Employees
          |   3. Search Employees 
-         |   4. Print Payslip for Employee
+         |   4. Print Monthly Payslip for Employee
          |   5. Add Dummy Data
          |   6. Delete Employee
+         |   7. Modify Employee
          |   0. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -44,6 +45,7 @@ fun start() {
             4 -> paySlip()
             5 -> dummyData()
             6 -> delete()
+            7 -> modify()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -112,6 +114,12 @@ fun delete(){
     val employeeID = readLine()!!.toInt()
     logger.info { "Deleting Employee" }
     employees.delete(employeeID)
+}
+
+fun modify(){
+    print("Enter the employee id of the employee for modification: ")
+    val employeeID = readLine()!!.toInt()
+    employees.modify(employeeID)
 }
 
 fun roundTwoDecimals(number: Double) = round(number * 100) / 100
