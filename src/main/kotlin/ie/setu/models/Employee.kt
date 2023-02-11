@@ -2,6 +2,7 @@ package ie.setu.models
 
 import ie.setu.roundTwoDecimals
 
+//Used for Object that stores employees
 class Employee (
     var fname : String,
     var sname : String,
@@ -21,11 +22,14 @@ class Employee (
         else ->  "${fname} ${sname}"
     }
 
+    //Calculations for payslip simplicity
     fun monthlyPrsi() = roundTwoDecimals((salary/12)*(prsi/100))
     fun monthlyPaye() = roundTwoDecimals((salary/12)*(paye/100))
     fun grossSalary() = roundTwoDecimals(((salary + bonus)/12))
     fun totalDeduction() = roundTwoDecimals(((deduction+salary*(paye/100)+salary*(prsi/100))/12))
     fun netPay() = roundTwoDecimals((((salary+bonus)-(deduction+salary*(paye/100)+salary*(prsi/100)))/12))
+
+    //Creates a payslip of monthly earning calculations
     fun getPayslip() = """
       _____________________________________________________________________
                                  Monthly Payslip                           
@@ -47,6 +51,7 @@ class Employee (
       _____________________________________________________________________
       """
 
+    //Displays object information in a clean way
     override fun toString(): String {
         return """Employee: $fname $sname,
             Gender: $gender,

@@ -4,6 +4,7 @@ import ie.setu.models.Employee
 
 var lastId = 0
 
+//Ensures id matches up with arraylist index of object
 internal fun getId(): Int {
     return lastId++
 }
@@ -12,23 +13,29 @@ class EmployeeAPI {
 
     private val employees = ArrayList<Employee>()
 
+    //Returns all contents of Arraylist
     fun findAll(): List<Employee> {
         return employees
     }
 
+    //Returns specific Object from arraylist
     fun findOne(id: Int): Employee? {
         return employees.find { p -> p.empid == id }
     }
 
+    //Adds new employee to arraylist
     fun create(employee: Employee) {
         employee.empid = getId()
         employees.add(employee)
     }
 
+    //Removes employee from arraylist
     fun delete(empid: Int) {
         employees.remove(findOne(empid))
     }
 
+    /*Modifies employee values except employee id as that should continue to line up
+      with its previous index position*/
     fun modify(empid: Int) {
         print("Enter new first name: ")
         val fname = readLine().toString()

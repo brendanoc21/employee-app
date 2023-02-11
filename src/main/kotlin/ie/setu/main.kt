@@ -9,12 +9,22 @@ var employees = EmployeeAPI()
 
 val logger = KotlinLogging.logger {}
 
+//The main function
 fun main(args: Array<String>){
     logger.info { "Launching Employee App" }
     start()
 }
 
+//Used for displaying the menu to the user and taking their input
 fun menu() : Int {
+    /*
+    Additional message and readline were added to delay the appearance of the menu so that
+    the user would not have to scroll up as much after selecting an input.
+
+    I did this due to personal frustration with how that worked but it has led to unfortunate
+    consequences as the program may crash when being given an actual input during this extra
+    step.
+    */
     logger.info { "Press enter To return to menu" }
     readLine()!!
     logger.info { "Starting Menu" }
@@ -33,11 +43,13 @@ fun menu() : Int {
     return readLine()!!.toInt()
 }
 
+//Runs the main menu of the program
 fun start() {
     var input: Int
     do {
-        input = menu()
         logger.info { "Accepting Input" }
+        input = menu()
+        //Takes input and actually uses it to run different functions
         when (input) {
             1 -> add()
             2 -> list()
@@ -52,11 +64,13 @@ fun start() {
     } while (input != -1)
 }
 
+//Lists all employees using their respective toStrings
 fun list(){
     logger.info { "Printing List" }
     employees.findAll().forEach{println(it)}
 }
 
+//Finds a specific employee by ID
 fun search() {
     val employee = getEmployeeById()
     if (employee == null)
@@ -65,6 +79,7 @@ fun search() {
         println(employee)
 }
 
+//Finds a specific employee by ID and returns it for use by other functions
 internal fun getEmployeeById(): Employee? {
     print("Enter the employee id to ie.setu.search by: ")
     val employeeID = readLine()!!.toInt()
@@ -72,6 +87,7 @@ internal fun getEmployeeById(): Employee? {
     return employees.findOne(employeeID)
 }
 
+//Gets payslip of selected employee
 fun paySlip(){
     val employee = getEmployeeById()
     logger.info { "Printing Payslip" }
@@ -79,6 +95,7 @@ fun paySlip(){
         println(employee.getPayslip())
 }
 
+//Adds multiple dummy entries for testing purposes
 fun dummyData() {
     logger.info { "Adding Dummy Data" }
     employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
@@ -86,6 +103,7 @@ fun dummyData() {
     employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
 }
 
+//Takes user input and uses it for a new object in the arraylist
 fun add(){
     print("Enter first name: ")
     val fname = readLine().toString()
@@ -109,6 +127,7 @@ fun add(){
     employees.create(Employee(fname, sname, gender, empid, salary, paye, prsi, bonus, deduction))
 }
 
+//Finds and deletes an employee by id
 fun delete(){
     print("Enter the employee id of the employee for deletion: ")
     val employeeID = readLine()!!.toInt()
@@ -116,10 +135,12 @@ fun delete(){
     employees.delete(employeeID)
 }
 
+//Finds and modifies an employee by id
 fun modify(){
     print("Enter the employee id of the employee for modification: ")
     val employeeID = readLine()!!.toInt()
     employees.modify(employeeID)
 }
 
+//Rounds numbers to two decimal places for tidiness
 fun roundTwoDecimals(number: Double) = round(number * 100) / 100
