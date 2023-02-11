@@ -23,6 +23,7 @@ fun menu() : Int {
          |   3. Search Employees 
          |   4. Print Payslip for Employee
          |   5. Add Dummy Data
+         |   6. Delete Employee
          |   0. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -40,6 +41,7 @@ fun start() {
             3 -> search()
             4 -> paySlip()
             5 -> dummyData()
+            6 -> delete()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -76,9 +78,9 @@ fun paySlip(){
 
 fun dummyData() {
     logger.info { "Adding Dummy Data" }
-    employees.create(Employee("Joe", "Soap", 'm', 1, 35655.43, 31.0, 7.5, 2000.0, 25.6))
-    employees.create(Employee("Joan", "Murphy", 'f', 2, 54255.13, 32.5, 7.0, 1500.0, 55.3))
-    employees.create(Employee("Mary", "Quinn", 'f', 3, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+    employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
+    employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
+    employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
 }
 
 fun add(){
@@ -102,6 +104,13 @@ fun add(){
     val deduction= readLine()!!.toDouble()
     logger.info { "Adding Employee" }
     employees.create(Employee(fname, sname, gender, empid, salary, paye, prsi, bonus, deduction))
+}
+
+fun delete(){
+    print("Enter the employee id of the employee for deletion: ")
+    val employeeID = readLine()!!.toInt()
+    logger.info { "Deleting Employee" }
+    employees.delete(employeeID)
 }
 
 fun roundTwoDecimals(number: Double) = round(number * 100) / 100
